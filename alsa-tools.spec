@@ -18,7 +18,8 @@ BuildRequires:	libtool
 BuildRequires:	ncurses-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define	progs	ac3dec envy24control hdsploader mixartloader sscape_ctl usx2yloader as10k1 hdspconf rmedigicontrol seq/sbiload us428control vxloader
+# ac3dec skipped - see ac3dec.spec
+%define	progs	envy24control hdsploader mixartloader sscape_ctl usx2yloader as10k1 hdspconf rmedigicontrol seq/sbiload us428control vxloader
 # hdspmixer sb16_csp - FIXME: these do not build
 
 %description
@@ -70,8 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc */README.* */*/README.*
-%doc */NEWS.* */TODO.*
+%doc */README.* */*/README.* */NEWS.*
+# alsamixer/TODO.* 
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man?/*
 %{_sysconfdir}/hotplug/usb/*
+%{_desktopdir}/hdspconf.desktop
+%{_pixmapsdir}/hdspconf.png
