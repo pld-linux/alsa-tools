@@ -1,12 +1,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
 Name:		alsa-tools
-Version:	1.0.7
+Version:	1.0.8
 Release:	1
 License:	GPL
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	efd8660f818f2bbd7fd4761e0068fde1
+# Source0-md5:	cf51eccd14e818a9f0be455cedcd52ff
 URL:		http://www.alsa-project.org/
 BuildRequires:	alsa-lib-devel >= 1.0.3
 BuildRequires:	autoconf
