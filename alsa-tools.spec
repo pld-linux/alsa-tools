@@ -1,5 +1,5 @@
-Summary:	Advanced Linux Sound Architecture (ALSA) - Tools
-Summary(pl):	Advanced Linux Sound Architecture (ALSA) - Narzêdzia
+Summary:	Advanced Linux Sound Architecture (ALSA) - tools
+Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
 Name:		alsa-tools
 Version:	1.0.5
 Release:	1
@@ -21,7 +21,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 # hdspmixer sb16_csp - FIXME: these do not build
 
 %description
-This packages contains command line utilities for the ALSA project.
+This packages contains command line utilities for the ALSA (Advanced
+Linux Sound Architecture) project.
 
 %description -l pl
 Pakiet zawiera dzia³aj±ce z linii poleceñ, narzêdzia dla projektu ALSA
