@@ -2,11 +2,12 @@ Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
 Name:		alsa-tools
 Version:	1.0.8
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
 # Source0-md5:	cf51eccd14e818a9f0be455cedcd52ff
+Patch0:		%{name}-gcc4.patch
 URL:		http://www.alsa-project.org/
 BuildRequires:	alsa-lib-devel >= 1.0.3
 BuildRequires:	autoconf
@@ -32,10 +33,11 @@ Pakiet zawiera dzia³aj±ce z linii poleceñ, narzêdzia dla projektu ALSA
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 for dir in hdsploader hdspconf/src hdspmixer/src sb16_csp sscape_ctl; do
-	ln -s /usr/include $dir/alsa
+	ln -s %{_includedir} $dir/alsa
 done
 
 odir=$(pwd)
