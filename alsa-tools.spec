@@ -16,8 +16,8 @@ BuildRequires:	fltk-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	ncurses-devel
-BuildRequires:	sed >= 4.0
 BuildRequires:	qt-devel
+BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # ac3dec skipped - see ac3dec.spec
@@ -46,9 +46,10 @@ for dir in %{progs}; do
 	[ -f README ] && cp -f README "README.$(basename $dir)"
 	[ -f NEWS ] && cp -f NEWS "NEWS.$(basename $dir)"
 	[ -f TODO ] && cp -f TODO "TODO.$(basename $dir)"
+	[ -f ltmain.sh ] && %{__libtoolize}
 	%{__aclocal}
 	%{__autoconf}
-	%{__autoheader}
+	grep -q AC_CONFIG_HEADER configure.* && %{__autoheader}
 	%{__automake}
 	CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
 	CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions"
@@ -58,10 +59,10 @@ for dir in %{progs}; do
 done
 
 cd qlo10k1
-sed -i s/'include'/'include\/qt'/ acinclude.m4
-[ -f README ] && cp -f README README.qlo10k1
-[ -f NEWS ] && cp -f NEWS NEWS.qlo10k1
-[ -f TODO ] && cp -f TODO TODO.qlo10k1
+sed -i -e 's,include,include/qt,' acinclude.m4
+cp -f README README.qlo10k1
+cp -f NEWS NEWS.qlo10k1
+cp -f TODO TODO.qlo10k1
 %{__aclocal} -I ../ld10k1
 %{__autoconf}
 %{__autoheader}
@@ -75,20 +76,17 @@ CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions"
 	--with-ld10k1-inc-prefix=$odir/ld10k1/include
 %{__make}
 
-cd $odir/as10k1/examples
-%{__make} dsp
+%{__make} -C $odir/as10k1/examples dsp
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-sed -i s/'#!\/bin\/sh'/'#!\/bin\/bash'/ ld10k1/setup/init_live
+sed -i -e 's,#!/bin/sh,#!/bin/bash,' ld10k1/setup/init_live
 
 odir=$(pwd)
 for dir in %{progs} qlo10k1; do
-	cd $dir
-	%{__make} install \
+	%{__make} -C $dir install \
 		DESTDIR=$RPM_BUILD_ROOT
-	cd $odir
 done
 
 install $odir/as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effects
@@ -96,13 +94,16 @@ install $odir/as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effect
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc */README.* */*/README.* */NEWS.*
 # alsamixer/TODO.* 
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
-%attr(755,root,root) %{_libdir}/*
+%attr(755,root,root) %{_libdir}/liblo10k1.so.*.*.*
 %{_datadir}/ld10k1
 %{_mandir}/man?/*
 %{_sysconfdir}/hotplug/usb/*
