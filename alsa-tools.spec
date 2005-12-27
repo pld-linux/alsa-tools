@@ -60,7 +60,7 @@ done
 
 cd qlo10k1
 sed -i 's:include:include/qt:g' acinclude.m4
-%ifarch %{x8664} ppc64 sparc64
+%if "%{_lib}" == "lib64"
 sed -i 's:QTDIR/lib:QTDIR/lib64:g' acinclude.m4
 %endif
 cp -f README README.qlo10k1
