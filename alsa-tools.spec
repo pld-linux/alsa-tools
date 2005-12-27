@@ -2,7 +2,7 @@ Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
 Name:		alsa-tools
 Version:	1.0.10
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
@@ -59,7 +59,10 @@ for dir in %{progs}; do
 done
 
 cd qlo10k1
-sed -i -e 's,include,include/qt,' acinclude.m4
+sed -i 's:include:include/qt:g' acinclude.m4
+%ifarch %{x8664} ppc64 sparc64
+sed -i 's:QTDIR/lib:QTDIR/lib64:g' acinclude.m4
+%endif
 cp -f README README.qlo10k1
 cp -f NEWS NEWS.qlo10k1
 cp -f TODO TODO.qlo10k1
