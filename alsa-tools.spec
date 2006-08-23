@@ -32,6 +32,19 @@ Linux Sound Architecture) project.
 Pakiet zawiera dzia³aj±ce z linii poleceñ, narzêdzia dla projektu ALSA
 (Advanced Linux Sound Architecture).
 
+%package tascam
+Summary:	Hotplug support for for Tascam USB devices
+Summary(pl):	Wsparcie hotpluga do urz±dzeñ USB Tascam
+Group:		Applications/Sound
+Requires:	hotplug
+
+%description tascam
+Hotplug support for for Tascam USB devices, firmware loader.
+
+%description tascam -l pl
+Wsparcie hotpluga do urz±dzeñ USB Tascam, narzêdzie do ³adowania
+firmware'u.
+
 %prep
 %setup -q
 
@@ -109,9 +122,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/liblo10k1.so.*.*.*
 %{_datadir}/ld10k1
 %{_mandir}/man?/*
-%{_sysconfdir}/hotplug/usb/*
 %{_desktopdir}/hdspconf.desktop
 %{_pixmapsdir}/hdspconf.png
+
+%files tascam
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_sysconfdir}/hotplug/usb/tascam_fpga
+%attr(755,root,root) %{_sysconfdir}/hotplug/usb/tascam_fw
+%{_sysconfdir}/hotplug/usb/tascam_fw.usermap
 
 # [lib]lo10k1-devel ?
 #%attr(755,root,root) %{_libdir}/liblo10k1.so
