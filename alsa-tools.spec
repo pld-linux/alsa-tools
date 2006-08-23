@@ -33,13 +33,13 @@ Pakiet zawiera dzia³aj±ce z linii poleceñ, narzêdzia dla projektu ALSA
 (Advanced Linux Sound Architecture).
 
 %package tascam
-Summary:	Hotplug support for for Tascam USB devices
+Summary:	Hotplug support for Tascam USB devices
 Summary(pl):	Wsparcie hotpluga do urz±dzeñ USB Tascam
 Group:		Applications/Sound
 Requires:	hotplug
 
 %description tascam
-Hotplug support for for Tascam USB devices, firmware loader.
+Hotplug support for Tascam USB devices, firmware loader.
 
 %description tascam -l pl
 Wsparcie hotpluga do urz±dzeñ USB Tascam, narzêdzie do ³adowania
