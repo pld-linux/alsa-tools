@@ -1,0 +1,32 @@
+--- alsa-tools-1.0.11.orig/envy24control/Makefile.am	2006-03-29 13:33:02.000000000 +0200
++++ alsa-tools-1.0.11/envy24control/Makefile.am	2006-08-23 22:05:45.000000000 +0200
+@@ -4,7 +4,7 @@
+ envy24control_SOURCES = envy24control.c envy24control.h levelmeters.c midi.c \
+                         mixer.c patchbay.c hardware.c driverevents.c volume.c \
+ 			profiles.c profiles.h midi.h config.c config.h
+-envy24control_LDFLAGS = @ENVY24CONTROL_LIBS@
++envy24control_LDADD = @ENVY24CONTROL_LIBS@
+ EXTRA_DIST = envy24control.1 depcomp configure.in-gtk1 configure.in-gtk2 \
+ 	     strstr_icase_blank.c new_process.c README.profiles
+ AUTOMAKE_OPTIONS = foreign
+--- alsa-tools-1.0.11.orig/hdspconf/configure.in	2004-03-19 16:31:13.000000000 +0100
++++ alsa-tools-1.0.11/hdspconf/configure.in	2006-08-23 22:49:46.000000000 +0200
+@@ -36,6 +36,6 @@
+ FLTK_LIBS=`$FLTK_CONFIG $fltk_config_args --ldflags`
+ 
+ CXXFLAGS="$CXXFLAGS $ALSA_CFLAGS $FLTK_CXXFLAGS"
+-LDFLAGS="$LDFLAGS $ALSA_LIBS $FLTK_LIBS"
++LIBS="$ALSA_LIBS $FLTK_LIBS"
+ 
+ AC_OUTPUT(Makefile src/Makefile pixmaps/Makefile)
+--- alsa-tools-1.0.11.orig/rmedigicontrol/Makefile.am	2006-03-29 13:33:02.000000000 +0200
++++ alsa-tools-1.0.11/rmedigicontrol/Makefile.am	2006-08-23 23:00:28.000000000 +0200
+@@ -2,7 +2,7 @@
+ bin_PROGRAMS = rmedigicontrol
+ rmedigicontrol_SOURCES = rmedigicontrol.c rmedigicontrol.h level.c loopback.c
+ 
+-rmedigicontrol_LDFLAGS = @RMEDIGICONTROL_LIBS@
++rmedigicontrol_LDADD = @RMEDIGICONTROL_LIBS@
+ 
+ EXTRA_DIST = depcomp configure.in-gtk1 configure.in-gtk2
+ AUTOMAKE_OPTIONS = foreign
