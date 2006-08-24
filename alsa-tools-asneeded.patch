@@ -16,7 +16,7 @@
  
  CXXFLAGS="$CXXFLAGS $ALSA_CFLAGS $FLTK_CXXFLAGS"
 -LDFLAGS="$LDFLAGS $ALSA_LIBS $FLTK_LIBS"
-+LIBS="$ALSA_LIBS $FLTK_LIBS"
++LIBS="$LIBS $ALSA_LIBS $FLTK_LIBS"
  
  AC_OUTPUT(Makefile src/Makefile pixmaps/Makefile)
 --- alsa-tools-1.0.11.orig/rmedigicontrol/Makefile.am	2006-03-29 13:33:02.000000000 +0200
