@@ -30,3 +30,24 @@
  
  EXTRA_DIST = depcomp configure.in-gtk1 configure.in-gtk2
  AUTOMAKE_OPTIONS = foreign
+--- alsa-tools-1.0.12/hdspmixer/configure.in.orig	2006-08-22 20:25:52.000000000 +0200
++++ alsa-tools-1.0.12/hdspmixer/configure.in	2006-08-26 16:10:59.507462250 +0200
+@@ -36,6 +36,6 @@
+ FLTK_LIBS="`$FLTK_CONFIG --ldflags`"
+ 
+ CXXFLAGS="$CXXFLAGS $ALSA_CFLAGS $FLTK_CXXFLAGS"
+-LDFLAGS="$LDFLAGS $ALSA_LIBS $FLTK_LIBS"
++LIBS="$LIBS $ALSA_LIBS $FLTK_LIBS"
+ 
+ AC_OUTPUT(Makefile src/Makefile pixmaps/Makefile)
+--- alsa-tools-1.0.12/echomixer/Makefile.am.orig	2006-08-22 20:25:52.000000000 +0200
++++ alsa-tools-1.0.12/echomixer/Makefile.am	2006-08-26 16:27:49.462580500 +0200
+@@ -2,7 +2,7 @@
+ bin_PROGRAMS = echomixer
+ man_MANS = 
+ echomixer_SOURCES = echomixer.c 
+-echomixer_LDFLAGS = @ECHOMIXER_LIBS@
++echomixer_LDADD = @ECHOMIXER_LIBS@
+ EXTRA_DIST = configure.in-gtk1 configure.in-gtk2
+ AUTOMAKE_OPTIONS = foreign
+ 
