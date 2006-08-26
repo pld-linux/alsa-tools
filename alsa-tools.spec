@@ -1,37 +1,44 @@
+# TODO: make description true (i.e. separate GUIs, maybe liblo10k1{,-devel})
+# echomixer,envy24control,rmedigicontrol use GTK+ 2
+# hdspconf,hdspmixer use FLTK
+# qlo10k1 uses Qt 3
+# 
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
 Name:		alsa-tools
-Version:	1.0.11
-Release:	3
+Version:	1.0.12
+Release:	1
 License:	GPL
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	a2840af7f1624d46257b6a53aea43eb7
+# Source0-md5:	6523e051ef49ea58899215c1a32f5ca7
 Patch0:		%{name}-asneeded.patch
 Patch1:		%{name}-sh.patch
+Patch2:		%{name}-csp.patch
 URL:		http://www.alsa-project.org/
 BuildRequires:	alsa-lib-devel >= 1.0.3
 BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	automake >= 1.3
 BuildRequires:	flex
 BuildRequires:	fltk-devel
+BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:1.5
 BuildRequires:	ncurses-devel
+BuildRequires:	pkgconfig
 BuildRequires:	qt-devel
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # ac3dec skipped - see ac3dec.spec
-%define	progs	envy24control hdsploader mixartloader sscape_ctl usx2yloader as10k1 hdspconf rmedigicontrol seq/sbiload us428control vxloader ld10k1
-# hdspmixer sb16_csp - FIXME: these do not build
+%define	progs	as10k1 echomixer envy24control hdspconf hdsploader hdspmixer ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
 
 %description
 This packages contains command line utilities for the ALSA (Advanced
 Linux Sound Architecture) project.
 
 %description -l pl
-Pakiet zawiera dzia³aj±ce z linii poleceñ, narzêdzia dla projektu ALSA
+Pakiet zawiera dzia³aj±ce z linii poleceñ narzêdzia dla projektu ALSA
 (Advanced Linux Sound Architecture).
 
 %package tascam
@@ -51,12 +58,14 @@ firmware'u.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+
+# don't BR gtk+ 1.2
+echo 'AC_DEFUN([AM_PATH_GTK],[])' > echomixer/acinclude.m4
+echo 'AC_DEFUN([AM_PATH_GTK],[])' > envy24control/acinclude.m4
+echo 'AC_DEFUN([AM_PATH_GTK],[])' > rmedigicontrol/acinclude.m4
 
 %build
-for dir in hdsploader hdspconf/src hdspmixer/src sb16_csp sscape_ctl; do
-	ln -s %{_includedir} $dir/alsa
-done
-
 odir=$(pwd)
 for dir in %{progs}; do
 	cd $dir
@@ -127,7 +136,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/ld10k1
 %{_mandir}/man?/*
 %{_desktopdir}/hdspconf.desktop
+%{_desktopdir}/hdspmixer.desktop
 %{_pixmapsdir}/hdspconf.png
+%{_pixmapsdir}/hdspmixer.png
 
 %files tascam
 %defattr(644,root,root,755)
