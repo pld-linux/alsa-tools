@@ -1,4 +1,4 @@
-# TODO: make description true (i.e. separate GUIs, maybe liblo10k1{,-devel})
+# TODO: make description true (i.e. separate GUIs)
 # echomixer,envy24control,rmedigicontrol use GTK+ 2
 # hdspconf,hdspmixer use FLTK
 # qlo10k1 uses Qt 3
@@ -6,12 +6,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
 Name:		alsa-tools
-Version:	1.0.12
+Version:	1.0.13
 Release:	1
 License:	GPL
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	6523e051ef49ea58899215c1a32f5ca7
+# Source0-md5:	3f30a884848a21910195a3c77f1dbde2
 Patch0:		%{name}-asneeded.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -28,6 +28,8 @@ BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel
 BuildRequires:	sed >= 4.0
+# for lo10k1, qlo10k1
+Requires:	liblo10k1 = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # ac3dec skipped - see ac3dec.spec
@@ -53,6 +55,42 @@ Hotplug support for Tascam USB devices, firmware loader.
 %description tascam -l pl
 Wsparcie hotpluga do urz±dzeñ USB Tascam, narzêdzie do ³adowania
 firmware'u.
+
+%package -n liblo10k1
+Summary:	liblo10k1 library
+Summary(pl):	Biblioteka liblo10k1
+Group:		Libraries
+Conflicts:	alsa-tools < 1.0.13
+
+%description -n liblo10k1
+liblo10k1 library.
+
+%description -n liblo10k1 -l pl
+Biblioteka liblo10k1.
+
+%package -n liblo10k1-devel
+Summary:	Header files for liblo10k1 library
+Summary(pl):	Pliki nag³ówkowe biblioteki liblo10k1
+Group:		Development/Libraries
+Requires:	liblo10k1 = %{version}-%{release}
+
+%description -n liblo10k1-devel
+Header files for liblo10k1 library.
+
+%description -n liblo10k1-devel -l pl
+Pliki nag³ówkowe biblioteki liblo10k1.
+
+%package -n liblo10k1-static
+Summary:	Static liblo10k1 library
+Summary(pl):	Statyczna biblioteka liblo10k1
+Group:		Development/Libraries
+Requires:	liblo10k1-devel = %{version}-%{release}
+
+%description -n liblo10k1-static
+Static liblo10k1 library.
+
+%description -n liblo10k1-static -l pl
+Statyczna biblioteka liblo10k1.
 
 %prep
 %setup -q
@@ -123,8 +161,8 @@ install $odir/as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effect
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	-n liblo10k1 -p /sbin/ldconfig
+%postun	-n liblo10k1 -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -132,13 +170,14 @@ rm -rf $RPM_BUILD_ROOT
 # alsamixer/TODO.* 
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
-%attr(755,root,root) %{_libdir}/liblo10k1.so.*.*.*
 %{_datadir}/ld10k1
 %{_mandir}/man?/*
 %{_desktopdir}/hdspconf.desktop
 %{_desktopdir}/hdspmixer.desktop
 %{_pixmapsdir}/hdspconf.png
 %{_pixmapsdir}/hdspmixer.png
+# for sbiload
+%{_datadir}/sounds/opl3
 
 %files tascam
 %defattr(644,root,root,755)
@@ -146,11 +185,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sysconfdir}/hotplug/usb/tascam_fw
 %{_sysconfdir}/hotplug/usb/tascam_fw.usermap
 
-# [lib]lo10k1-devel ?
-#%attr(755,root,root) %{_libdir}/liblo10k1.so
-#%{_libdir}/liblo10k1.la
-#%{_includedir}/lo10k1
-#%{_aclocaldir}/ld10k1.m4
+%files -n liblo10k1
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/liblo10k1.so.*.*.*
 
-# ?
-#%{_datadir}/sounds/opl3
+%files -n liblo10k1-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/liblo10k1.so
+%{_libdir}/liblo10k1.la
+%{_includedir}/lo10k1
+%{_aclocaldir}/ld10k1.m4
+
+#%files -n liblo10k1-static
+#%defattr(644,root,root,755)
+#%{_libdir}/liblo10k1.a
