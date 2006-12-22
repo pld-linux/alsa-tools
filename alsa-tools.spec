@@ -7,7 +7,7 @@ Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
 Name:		alsa-tools
 Version:	1.0.13
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
@@ -47,7 +47,7 @@ Pakiet zawiera dzia³aj±ce z linii poleceñ narzêdzia dla projektu ALSA
 Summary:	Hotplug support for Tascam USB devices
 Summary(pl):	Wsparcie hotpluga do urz±dzeñ USB Tascam
 Group:		Applications/Sound
-Requires:	hotplug
+Requires:	udev
 
 %description tascam
 Hotplug support for Tascam USB devices, firmware loader.
