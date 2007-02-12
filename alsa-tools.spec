@@ -4,7 +4,7 @@
 # qlo10k1 uses Qt 3
 # 
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
-Summary(pl.UTF-8):   Advanced Linux Sound Architecture (ALSA) - narzędzia
+Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
 Version:	1.0.13
 Release:	2
@@ -45,7 +45,7 @@ Pakiet zawiera działające z linii poleceń narzędzia dla projektu ALSA
 
 %package tascam
 Summary:	Hotplug support for Tascam USB devices
-Summary(pl.UTF-8):   Wsparcie hotpluga do urządzeń USB Tascam
+Summary(pl.UTF-8):	Wsparcie hotpluga do urządzeń USB Tascam
 Group:		Applications/Sound
 Requires:	udev
 
@@ -58,7 +58,7 @@ firmware'u.
 
 %package -n liblo10k1
 Summary:	liblo10k1 library
-Summary(pl.UTF-8):   Biblioteka liblo10k1
+Summary(pl.UTF-8):	Biblioteka liblo10k1
 Group:		Libraries
 Conflicts:	alsa-tools < 1.0.13
 
@@ -70,7 +70,7 @@ Biblioteka liblo10k1.
 
 %package -n liblo10k1-devel
 Summary:	Header files for liblo10k1 library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki liblo10k1
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki liblo10k1
 Group:		Development/Libraries
 Requires:	liblo10k1 = %{version}-%{release}
 
@@ -82,7 +82,7 @@ Pliki nagłówkowe biblioteki liblo10k1.
 
 %package -n liblo10k1-static
 Summary:	Static liblo10k1 library
-Summary(pl.UTF-8):   Statyczna biblioteka liblo10k1
+Summary(pl.UTF-8):	Statyczna biblioteka liblo10k1
 Group:		Development/Libraries
 Requires:	liblo10k1-devel = %{version}-%{release}
 
