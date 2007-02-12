@@ -4,7 +4,7 @@
 # qlo10k1 uses Qt 3
 # 
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
-Summary(pl):	Advanced Linux Sound Architecture (ALSA) - narzêdzia
+Summary(pl.UTF-8):   Advanced Linux Sound Architecture (ALSA) - narzÄ™dzia
 Name:		alsa-tools
 Version:	1.0.13
 Release:	2
@@ -39,57 +39,57 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This packages contains command line utilities for the ALSA (Advanced
 Linux Sound Architecture) project.
 
-%description -l pl
-Pakiet zawiera dzia³aj±ce z linii poleceñ narzêdzia dla projektu ALSA
+%description -l pl.UTF-8
+Pakiet zawiera dziaÅ‚ajÄ…ce z linii poleceÅ„ narzÄ™dzia dla projektu ALSA
 (Advanced Linux Sound Architecture).
 
 %package tascam
 Summary:	Hotplug support for Tascam USB devices
-Summary(pl):	Wsparcie hotpluga do urz±dzeñ USB Tascam
+Summary(pl.UTF-8):   Wsparcie hotpluga do urzÄ…dzeÅ„ USB Tascam
 Group:		Applications/Sound
 Requires:	udev
 
 %description tascam
 Hotplug support for Tascam USB devices, firmware loader.
 
-%description tascam -l pl
-Wsparcie hotpluga do urz±dzeñ USB Tascam, narzêdzie do ³adowania
+%description tascam -l pl.UTF-8
+Wsparcie hotpluga do urzÄ…dzeÅ„ USB Tascam, narzÄ™dzie do Å‚adowania
 firmware'u.
 
 %package -n liblo10k1
 Summary:	liblo10k1 library
-Summary(pl):	Biblioteka liblo10k1
+Summary(pl.UTF-8):   Biblioteka liblo10k1
 Group:		Libraries
 Conflicts:	alsa-tools < 1.0.13
 
 %description -n liblo10k1
 liblo10k1 library.
 
-%description -n liblo10k1 -l pl
+%description -n liblo10k1 -l pl.UTF-8
 Biblioteka liblo10k1.
 
 %package -n liblo10k1-devel
 Summary:	Header files for liblo10k1 library
-Summary(pl):	Pliki nag³ówkowe biblioteki liblo10k1
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki liblo10k1
 Group:		Development/Libraries
 Requires:	liblo10k1 = %{version}-%{release}
 
 %description -n liblo10k1-devel
 Header files for liblo10k1 library.
 
-%description -n liblo10k1-devel -l pl
-Pliki nag³ówkowe biblioteki liblo10k1.
+%description -n liblo10k1-devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe biblioteki liblo10k1.
 
 %package -n liblo10k1-static
 Summary:	Static liblo10k1 library
-Summary(pl):	Statyczna biblioteka liblo10k1
+Summary(pl.UTF-8):   Statyczna biblioteka liblo10k1
 Group:		Development/Libraries
 Requires:	liblo10k1-devel = %{version}-%{release}
 
 %description -n liblo10k1-static
 Static liblo10k1 library.
 
-%description -n liblo10k1-static -l pl
+%description -n liblo10k1-static -l pl.UTF-8
 Statyczna biblioteka liblo10k1.
 
 %prep
