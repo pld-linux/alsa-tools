@@ -6,12 +6,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.0.13
-Release:	2
+Version:	1.0.14
+Release:	1
 License:	GPL
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	3f30a884848a21910195a3c77f1dbde2
+# Source0-md5:	d5bd2186cd0dff834fbf514b82160793
 Patch0:		%{name}-asneeded.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -124,9 +124,6 @@ done
 
 cd qlo10k1
 sed -i 's:include:include/qt:g' acinclude.m4
-%if "%{_lib}" == "lib64"
-sed -i 's:QTDIR/lib:QTDIR/lib64:g' acinclude.m4
-%endif
 cp -f README README.qlo10k1
 cp -f NEWS NEWS.qlo10k1
 cp -f TODO TODO.qlo10k1
