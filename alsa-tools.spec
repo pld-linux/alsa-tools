@@ -6,12 +6,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.0.15
-Release:	2
-License:	GPL
+Version:	1.0.16
+Release:	1
+License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	7066bbfdfa64a45e5df76c76eb785078
+# Source0-md5:	10ddbcdb4ecf3459d8e64b3e89fdb514
 Patch0:		%{name}-asneeded.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -185,6 +185,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n liblo10k1
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liblo10k1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/liblo10k1.so.0
 
 %files -n liblo10k1-devel
 %defattr(644,root,root,755)
