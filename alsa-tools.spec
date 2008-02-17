@@ -1,13 +1,17 @@
+#
 # TODO: make description true (i.e. separate GUIs)
 # echomixer,envy24control,rmedigicontrol use GTK+ 2
 # hdspconf,hdspmixer use FLTK
 # qlo10k1 uses Qt 3
-# 
+#
+# Conditional build:
+%bcond_with	tascam		# build with hotplug support for Tascam USB devices
+#
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
 Version:	1.0.16
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
@@ -177,11 +181,13 @@ rm -rf $RPM_BUILD_ROOT
 # for sbiload
 %{_datadir}/sounds/opl3
 
+%if %{with tascam}
 %files tascam
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sysconfdir}/hotplug/usb/tascam_fpga
 %attr(755,root,root) %{_sysconfdir}/hotplug/usb/tascam_fw
 %{_sysconfdir}/hotplug/usb/tascam_fw.usermap
+%endif
 
 %files -n liblo10k1
 %defattr(644,root,root,755)
