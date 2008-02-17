@@ -47,6 +47,7 @@ Pakiet zawiera działające z linii poleceń narzędzia dla projektu ALSA
 Summary:	Hotplug support for Tascam USB devices
 Summary(pl.UTF-8):	Wsparcie hotpluga do urządzeń USB Tascam
 Group:		Applications/Sound
+Requires:	%{name} = %{version}-%{release}
 Requires:	hotplug
 
 %description tascam
