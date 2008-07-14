@@ -4,18 +4,23 @@
 # hdspconf,hdspmixer use FLTK
 # qlo10k1 uses Qt 3
 #
+# - warning: Installed (but unpackaged) file(s) found:
+#   /etc/hotplug/usb/tascam_fpga
+#   /etc/hotplug/usb/tascam_fw
+#   /etc/hotplug/usb/tascam_fw.usermap
+#
 # Conditional build:
 %bcond_with	tascam		# build with hotplug support for Tascam USB devices
 #
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.0.16
-Release:	2
+Version:	1.0.17
+Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	10ddbcdb4ecf3459d8e64b3e89fdb514
+# Source0-md5:	b58f01c105711b10791f8394447a1bd5
 Patch0:		%{name}-asneeded.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -115,7 +120,7 @@ for dir in %{progs}; do
 	[ -f README ] && cp -f README "README.$(basename $dir)"
 	[ -f NEWS ] && cp -f NEWS "NEWS.$(basename $dir)"
 	[ -f TODO ] && cp -f TODO "TODO.$(basename $dir)"
-	[ -f ltmain.sh ] && %{__libtoolize}
+	%{__libtoolize}
 	%{__aclocal}
 	%{__autoconf}
 	grep -q AC_CONFIG_HEADER configure.* && %{__autoheader}
@@ -132,6 +137,7 @@ sed -i 's:include:include/qt:g' acinclude.m4
 cp -f README README.qlo10k1
 cp -f NEWS NEWS.qlo10k1
 cp -f TODO TODO.qlo10k1
+%{__libtoolize}
 %{__aclocal} -I ../ld10k1
 %{__autoconf}
 %{__autoheader}
