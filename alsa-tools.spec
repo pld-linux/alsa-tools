@@ -4,13 +4,8 @@
 # hdspconf,hdspmixer use FLTK
 # qlo10k1 uses Qt 3
 #
-# - warning: Installed (but unpackaged) file(s) found:
-#   /etc/hotplug/usb/tascam_fpga
-#   /etc/hotplug/usb/tascam_fw
-#   /etc/hotplug/usb/tascam_fw.usermap
-#
 # Conditional build:
-%bcond_with	tascam		# build with hotplug support for Tascam USB devices
+%bcond_with	hotplug		# build with hotplug support for Tascam USB devices
 #
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
@@ -166,6 +161,10 @@ done
 
 install $odir/as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effects
 
+%if %{without hotplug}
+rm -r $RPM_BUILD_ROOT%{_sysconfdir}/hotplug
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -174,12 +173,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc */README.* */*/README.* */NEWS.*
-# alsamixer/TODO.* 
+%doc */README.* */*/README.* */NEWS.* */TODO.*
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %{_datadir}/ld10k1
-%{_mandir}/man?/*
+%{_mandir}/man1/*.1*
 %{_desktopdir}/hdspconf.desktop
 %{_desktopdir}/hdspmixer.desktop
 %{_pixmapsdir}/hdspconf.png
@@ -187,7 +185,7 @@ rm -rf $RPM_BUILD_ROOT
 # for sbiload
 %{_datadir}/sounds/opl3
 
-%if %{with tascam}
+%if %{with hotplug}
 %files tascam
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sysconfdir}/hotplug/usb/tascam_fpga
