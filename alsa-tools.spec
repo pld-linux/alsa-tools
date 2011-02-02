@@ -2,6 +2,7 @@
 # TODO: make description true (i.e. separate GUIs)
 # echomixer,envy24control,rmedigicontrol use GTK+ 2
 # hdspconf,hdspmixer use FLTK
+# hwmixvolume uses pyalsa>=1.0.22,pygtk 2
 # qlo10k1 uses Qt 3
 #
 # Conditional build:
@@ -20,7 +21,7 @@ Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
 URL:		http://www.alsa-project.org/
-BuildRequires:	alsa-lib-devel >= 1.0.3
+BuildRequires:	alsa-lib-devel >= 1.0.24
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.3
 BuildRequires:	flex
@@ -32,12 +33,13 @@ BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel
 BuildRequires:	sed >= 4.0
+Requires:	alsa-lib >= 1.0.24
 # for lo10k1, qlo10k1
 Requires:	liblo10k1 = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # ac3dec skipped - see ac3dec.spec
-%define	progs	as10k1 echomixer envy24control hdspconf hdsploader hdspmixer ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
+%define	progs	as10k1 echomixer envy24control hdspconf hdsploader hdspmixer hwmixvolume ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
 
 %description
 This packages contains command line utilities for the ALSA (Advanced
@@ -118,11 +120,10 @@ for dir in %{progs}; do
 	%{__libtoolize}
 	%{__aclocal}
 	%{__autoconf}
-	grep -q AC_CONFIG_HEADER configure.* && %{__autoheader}
+	grep -q 'A[CM]_CONFIG_HEADER' configure.* && %{__autoheader}
 	%{__automake}
-	CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
-	CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions"
-	%configure
+	%configure \
+		`[ "$dir" != ld10k1 ] || echo --enable-static ]`
 	%{__make}
 	cd $odir
 done
@@ -137,8 +138,6 @@ cp -f TODO TODO.qlo10k1
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
-CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions"
 %configure \
 	--with-qtdir=%{_prefix} \
 	--disable-ld10k1test \
@@ -162,7 +161,7 @@ done
 install $odir/as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effects
 
 %if %{without hotplug}
-rm -r $RPM_BUILD_ROOT%{_sysconfdir}/hotplug
+%{__rm} -r $RPM_BUILD_ROOT%{_sysconfdir}/hotplug
 %endif
 
 %clean
@@ -205,6 +204,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/lo10k1
 %{_aclocaldir}/ld10k1.m4
 
-#%files -n liblo10k1-static
-#%defattr(644,root,root,755)
-#%{_libdir}/liblo10k1.a
+%files -n liblo10k1-static
+%defattr(644,root,root,755)
+%{_libdir}/liblo10k1.a
