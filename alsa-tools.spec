@@ -173,10 +173,40 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc */README.* */*/README.* */NEWS.* */TODO.*
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_bindir}/as10k1
+%attr(755,root,root) %{_bindir}/cspctl
+# GUI to control all the features of Echoaudio soundcard [gtk+2]
+%attr(755,root,root) %{_bindir}/echomixer
+# GUI to control Envy24 (ice1712) based soundcards [gtk+2]
+%attr(755,root,root) %{_bindir}/envy24control
+# GUI to control Hammerfall HDSP settings [fltk]
+%attr(755,root,root) %{_bindir}/hdspconf
+%attr(755,root,root) %{_bindir}/hdsploader
+# GUI to control advanced routing features of RME Hammerfall DSP soundcards [fltk]
+%attr(755,root,root) %{_bindir}/hdspmixer
+# GUI to control volume of individual streams on soundcards that use hardware mixing [pygtk,pyalsa]
+%attr(755,root,root) %{_bindir}/hwmixvolume
+%attr(755,root,root) %{_bindir}/init_audigy
+%attr(755,root,root) %{_bindir}/init_audigy_eq10
+%attr(755,root,root) %{_bindir}/init_live
+%attr(755,root,root) %{_bindir}/lo10k1
+%attr(755,root,root) %{_bindir}/mixartloader
+%attr(755,root,root) %{_bindir}/pcxhrloader
+# GUI for ld10k1 (EMU10K1 patch loader for ALSA) [qt 3]
+%attr(755,root,root) %{_bindir}/qlo10k1
+# GUI to control RME Digi32 and Digi96 soundcards [gtk+2]
+%attr(755,root,root) %{_bindir}/rmedigicontrol
+%attr(755,root,root) %{_bindir}/sbiload
+%attr(755,root,root) %{_bindir}/sscape_ctl
+%attr(755,root,root) %{_bindir}/us428control
+%attr(755,root,root) %{_bindir}/usx2yloader
+%attr(755,root,root) %{_bindir}/vxloader
+%attr(755,root,root) %{_sbindir}/dl10k1
+%attr(755,root,root) %{_sbindir}/ld10k1
+%attr(755,root,root) %{_sbindir}/ld10k1d
 %{_datadir}/ld10k1
-%{_mandir}/man1/*.1*
+%{_mandir}/man1/cspctl.1*
+%{_mandir}/man1/envy24control.1*
 %{_desktopdir}/hdspconf.desktop
 %{_desktopdir}/hdspmixer.desktop
 %{_pixmapsdir}/hdspconf.png
