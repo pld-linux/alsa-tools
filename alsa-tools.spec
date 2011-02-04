@@ -49,6 +49,112 @@ Linux Sound Architecture) project.
 Pakiet zawiera działające z linii poleceń narzędzia dla projektu ALSA
 (Advanced Linux Sound Architecture).
 
+%package gui-echoaudio
+Summary:	GTK+ GUI to control Echoaudio soundcard
+Summary(pl.UTF-8):	Graficzny interfejs GTK+ do sterowania kartami dźwiękowymi Echoaudio
+Group:		X11/Applications/Sound
+Requires:	%{name} = %{version}-%{release}
+
+%description gui-echoaudio
+This package contains Echomixer - GTK+ GUI tool to control all the
+features of any Echoaudio soundcard. This includes clock sources,
+input and output gains, mixers etc.
+
+%description gui-echoaudio -l pl.UTF-8
+Ten pakiet zawiera aplikację Echomixer - oparte na GTK+ graficzne
+narzędzie do sterowania wszystkimi ustawieniami kart dźwiękowych
+Echoaudio. Obejmuje to źródła zegara, wzmacniacze wejściowe i
+wyjściowe, miksery itp.
+
+%package gui-emu10k1
+Summary:	Qt GUI to load Emu10k1 patches
+Summary(pl.UTF-8):	Graficzny interfejs Qt do ładowania próbek Emu10k1
+Group:		X11/Applications/Sound
+Requires:	%{name} = %{version}-%{release}
+
+%description gui-emu10k1
+This package contains qlo10k1 - Qt GUI for ld10k1, ALSA patch loader
+for Emu10k1 based soundcards (SB Live! and Audigy).
+
+%description gui-emu10k1 -l pl.UTF-8
+Ten pakiet zawiera aplikację qlo10k1, będącą opartym na Qt graficznym
+interfejsem dla ld10k1 - programu służącego do wczytywania próbek
+dźwiękowych ALSA dla kart opartych na układzie Emu10k1 (SB Live! i
+Audigy).
+
+%package gui-envy24
+Summary:	GTK+ GUI to control Envy24 (ice1712) based soundcards
+Summary(pl.UTF-8):	Graficzny interfejs GTK+ do sterowania kartami dźwiękowymi Envy24
+Group:		X11/Applications/Sound
+Requires:	%{name} = %{version}-%{release}
+
+%description gui-envy24
+This package contains envy24control - GTK+ GUI tool to control Envy24
+(ice1712) based soundcards.
+
+%description gui-envy24 -l pl.UTF-8
+Ten pakiet zawiera aplikację envy24control - graficzny interfejs GTK+
+do sterowania ustawieniami kart dźwiękowych opartych na układzie
+Envy24 (ice1712).
+
+%package gui-hdsp
+Summary:	FLTK GUIs to control RME Hammerfall HDSP soundcards
+Summary(pl.UTF-8):	Graficzne interfejsy FLTK do sterowania kartami dźwiękowymi RME Hammerfall HDSP
+Group:		X11/Applications/Sound
+Requires:	%{name} = %{version}-%{release}
+
+%description gui-hdsp
+This package contains two FLTK-based GUI utilities for RME Hammerfall
+DSP soundcards:
+- HDSPConf to control ALSA settings
+- HDSPMixer to control advanced routing feaures.
+
+%description gui-hdsp -l pl.UTF-8
+Ten pakiet zawiera dwa narzędzia z opartym na FLTK graficznym
+interfejsem użytkownika, przeznaczone dla kart RME Hammerfall DSP:
+- HDSPConf do sterowania ustawieniami systemu ALSA
+- HDSPMixer do sterowania zaawansowanymi ustawieniami tras sygnału.
+
+%package gui-hwmix
+Summary:	PyGTK GUI to control volume of individual streams when using hardware mixing
+Summary(pl.UTF-8):	Graficzny interfejs PyGTK do ustawiania głośności strumieni przy sprzętowym miksowaniu
+Group:		X11/Applications/Sound
+Requires:	%{name} = %{version}-%{release}
+Requires:	python-pyalsa >= 1.0.22
+Requires:	python-pygtk-gtk >= 2:2.0
+
+%description gui-hwmix
+This package contains hwmixvolume - PyGTK-based GUI to control the
+volume of individual streams on soundcards that use hardware mixing,
+i.e. those based on the following chips:
+- Creative Emu10k1 (SoundBlaster Live!) (driver: snd-emu10k1)
+- VIA VT823x southbridge (driver: snd-via82xx)
+- Yamaha DS-1 (YMF-724/740/744/754) (driver: snd-ymfpci)
+
+%description gui-hwmix -l pl.UTF-8
+Ten pakiet zawiera aplikację hwmixvolume - oparty na PyGTK graficzny
+interfejs do sterowania głośnością poszczególnych strumieni w kartach
+dźwiękowych korzystających ze sprzętowego miksowania - czyli opartych
+na następujących układach:
+- Creative Emu10k1 (SoundBlaster Live!) (sterownik: snd-emu10k1)
+- mostku VIA VT823x (sterownik: snd-via82xx)
+- Yamaha DS-1 (YMF-724/740/744/754) (sterownik: snd-ymfpci)
+
+%package gui-rmedigi
+Summary:	GTK+ GUI to control RME Digi32/Digi96 soundcards
+Summary(pl.UTF-8):	Graficzny interfejs GTK+ do sterowania kartami dźwiękowymi RME Digi32/Digi96
+Group:		X11/Applications/Sound
+Requires:	%{name} = %{version}-%{release}
+
+%description gui-rmedigi
+This package contains rmedigicontrol - GTK+ GUI control tool for RME
+Digi32 and RME Digi96 soundcards.
+
+%description gui-rmedigi -l pl.UTF-8
+Ten pakiet zawiera aplikację rmedigicontrol - oparty na GTK+ graficzny
+interfejs do sterowania ustawieniami kart dźwiękowych RME Digi32 i RME
+Digi96.
+
 %package tascam
 Summary:	Hotplug support for Tascam USB devices
 Summary(pl.UTF-8):	Wsparcie hotpluga do urządzeń USB Tascam
@@ -110,13 +216,15 @@ echo 'AC_DEFUN([AM_PATH_GTK],[])' > echomixer/acinclude.m4
 echo 'AC_DEFUN([AM_PATH_GTK],[])' > envy24control/acinclude.m4
 echo 'AC_DEFUN([AM_PATH_GTK],[])' > rmedigicontrol/acinclude.m4
 
+sed -i -e 's,/usr/bin/env python,/usr/bin/python,' hwmixvolume/hwmixvolume
+
 %build
 odir=$(pwd)
 for dir in %{progs}; do
 	cd $dir
-	[ -f README ] && cp -f README "README.$(basename $dir)"
-	[ -f NEWS ] && cp -f NEWS "NEWS.$(basename $dir)"
-	[ -f TODO ] && cp -f TODO "TODO.$(basename $dir)"
+	[ -s README ] && cp -f README "README.$(basename $dir)"
+	[ -s NEWS ] && cp -f NEWS "NEWS.$(basename $dir)"
+	[ -s TODO ] && cp -f TODO "TODO.$(basename $dir)"
 	%{__libtoolize}
 	%{__aclocal}
 	%{__autoconf}
@@ -175,27 +283,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc */README.* */*/README.* */NEWS.* */TODO.*
 %attr(755,root,root) %{_bindir}/as10k1
 %attr(755,root,root) %{_bindir}/cspctl
-# GUI to control all the features of Echoaudio soundcard [gtk+2]
-%attr(755,root,root) %{_bindir}/echomixer
-# GUI to control Envy24 (ice1712) based soundcards [gtk+2]
-%attr(755,root,root) %{_bindir}/envy24control
-# GUI to control Hammerfall HDSP settings [fltk]
-%attr(755,root,root) %{_bindir}/hdspconf
 %attr(755,root,root) %{_bindir}/hdsploader
-# GUI to control advanced routing features of RME Hammerfall DSP soundcards [fltk]
-%attr(755,root,root) %{_bindir}/hdspmixer
-# GUI to control volume of individual streams on soundcards that use hardware mixing [pygtk,pyalsa]
-%attr(755,root,root) %{_bindir}/hwmixvolume
 %attr(755,root,root) %{_bindir}/init_audigy
 %attr(755,root,root) %{_bindir}/init_audigy_eq10
 %attr(755,root,root) %{_bindir}/init_live
 %attr(755,root,root) %{_bindir}/lo10k1
 %attr(755,root,root) %{_bindir}/mixartloader
 %attr(755,root,root) %{_bindir}/pcxhrloader
-# GUI for ld10k1 (EMU10K1 patch loader for ALSA) [qt 3]
-%attr(755,root,root) %{_bindir}/qlo10k1
-# GUI to control RME Digi32 and Digi96 soundcards [gtk+2]
-%attr(755,root,root) %{_bindir}/rmedigicontrol
 %attr(755,root,root) %{_bindir}/sbiload
 %attr(755,root,root) %{_bindir}/sscape_ctl
 %attr(755,root,root) %{_bindir}/us428control
@@ -206,13 +300,38 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/ld10k1d
 %{_datadir}/ld10k1
 %{_mandir}/man1/cspctl.1*
+# for sbiload
+%{_datadir}/sounds/opl3
+
+%files gui-echoaudio
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/echomixer
+
+%files gui-emu10k1
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/qlo10k1
+
+%files gui-envy24
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/envy24control
 %{_mandir}/man1/envy24control.1*
+
+%files gui-hdsp
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/hdspconf
+%attr(755,root,root) %{_bindir}/hdspmixer
 %{_desktopdir}/hdspconf.desktop
 %{_desktopdir}/hdspmixer.desktop
 %{_pixmapsdir}/hdspconf.png
 %{_pixmapsdir}/hdspmixer.png
-# for sbiload
-%{_datadir}/sounds/opl3
+
+%files gui-hwmix
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/hwmixvolume
+
+%files gui-rmedigi
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/rmedigicontrol
 
 %if %{with hotplug}
 %files tascam
