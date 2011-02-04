@@ -1,10 +1,4 @@
 #
-# TODO: make description true (i.e. separate GUIs)
-# echomixer,envy24control,rmedigicontrol use GTK+ 2
-# hdspconf,hdspmixer use FLTK
-# hwmixvolume uses pyalsa>=1.0.22,pygtk 2
-# qlo10k1 uses Qt 3
-#
 # Conditional build:
 %bcond_with	hotplug		# build with hotplug support for Tascam USB devices
 #
@@ -218,13 +212,15 @@ echo 'AC_DEFUN([AM_PATH_GTK],[])' > rmedigicontrol/acinclude.m4
 
 sed -i -e 's,/usr/bin/env python,/usr/bin/python,' hwmixvolume/hwmixvolume
 
+install -d doc-main doc-sep
+
 %build
 odir=$(pwd)
 for dir in %{progs}; do
 	cd $dir
-	[ -s README ] && cp -f README "README.$(basename $dir)"
-	[ -s NEWS ] && cp -f NEWS "NEWS.$(basename $dir)"
-	[ -s TODO ] && cp -f TODO "TODO.$(basename $dir)"
+	[ -s README ] && cp -f README $odir/doc-main/"README.$(basename $dir)"
+	[ -s NEWS ] && cp -f NEWS $odir/doc-main/"NEWS.$(basename $dir)"
+	[ -s TODO ] && cp -f TODO $odir/doc-main/"TODO.$(basename $dir)"
 	%{__libtoolize}
 	%{__aclocal}
 	%{__autoconf}
@@ -235,12 +231,15 @@ for dir in %{progs}; do
 	%{__make}
 	cd $odir
 done
+mv doc-main/NEWS.{hdspmixer,rmedigicontrol} doc-sep
+mv doc-main/README.{echomixer,envy24control,hdspconf,hdspmixer,hwmixvolume,rmedigicontrol} doc-sep
+mv doc-main/TODO.hdspmixer doc-sep
 
 cd qlo10k1
 sed -i 's:include:include/qt:g' acinclude.m4
-cp -f README README.qlo10k1
-cp -f NEWS NEWS.qlo10k1
-cp -f TODO TODO.qlo10k1
+cp -f README $odir/doc-sep/README.qlo10k1
+cp -f NEWS $odir/doc-sep/NEWS.qlo10k1
+cp -f TODO $odir/doc-sep/TODO.qlo10k1
 %{__libtoolize}
 %{__aclocal} -I ../ld10k1
 %{__autoconf}
@@ -260,13 +259,12 @@ rm -rf $RPM_BUILD_ROOT
 
 sed -i -e 's,#!/bin/sh,#!/bin/bash,' ld10k1/setup/init_live
 
-odir=$(pwd)
 for dir in %{progs} qlo10k1; do
 	%{__make} -C $dir install \
 		DESTDIR=$RPM_BUILD_ROOT
 done
 
-install $odir/as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effects
+install as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effects
 
 %if %{without hotplug}
 %{__rm} -r $RPM_BUILD_ROOT%{_sysconfdir}/hotplug
@@ -280,7 +278,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc */README.* */*/README.* */NEWS.* */TODO.*
+%doc doc-main/{README,NEWS,TODO}.*
 %attr(755,root,root) %{_bindir}/as10k1
 %attr(755,root,root) %{_bindir}/cspctl
 %attr(755,root,root) %{_bindir}/hdsploader
@@ -305,19 +303,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gui-echoaudio
 %defattr(644,root,root,755)
+%doc doc-sep/README.echomixer
 %attr(755,root,root) %{_bindir}/echomixer
 
 %files gui-emu10k1
 %defattr(644,root,root,755)
+%doc doc-sep/{README,NEWS,TODO}.qlo10k1
 %attr(755,root,root) %{_bindir}/qlo10k1
 
 %files gui-envy24
 %defattr(644,root,root,755)
+%doc doc-sep/README.envy24control envy24control/README.profiles
 %attr(755,root,root) %{_bindir}/envy24control
 %{_mandir}/man1/envy24control.1*
 
 %files gui-hdsp
 %defattr(644,root,root,755)
+%doc doc-sep/README.hdspconf doc-sep/{NEWS,README,TODO}.hdspmixer
 %attr(755,root,root) %{_bindir}/hdspconf
 %attr(755,root,root) %{_bindir}/hdspmixer
 %{_desktopdir}/hdspconf.desktop
@@ -327,10 +329,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gui-hwmix
 %defattr(644,root,root,755)
+%doc doc-sep/README.hwmixvolume
 %attr(755,root,root) %{_bindir}/hwmixvolume
 
 %files gui-rmedigi
 %defattr(644,root,root,755)
+%doc doc-sep/{NEWS,README}.rmedigicontrol
 %attr(755,root,root) %{_bindir}/rmedigicontrol
 
 %if %{with hotplug}
