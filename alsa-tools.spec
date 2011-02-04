@@ -18,7 +18,6 @@ URL:		http://www.alsa-project.org/
 BuildRequires:	alsa-lib-devel >= 1.0.24
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.3
-BuildRequires:	flex
 BuildRequires:	fltk-devel
 BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libstdc++-devel
@@ -26,6 +25,7 @@ BuildRequires:	libtool >= 2:1.5
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel
+BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 Requires:	alsa-lib >= 1.0.24
 # for lo10k1, qlo10k1
