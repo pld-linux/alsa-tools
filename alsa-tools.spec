@@ -5,12 +5,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.0.25
+Version:	1.0.26
 Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	57bfec98a814d12e0f7ab379aaeccd87
+# Source0-md5:	5dd605461e1cad850d0881d61b42c47e
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -20,6 +20,8 @@ BuildRequires:	autoconf
 BuildRequires:	automake >= 1.3
 BuildRequires:	fltk-devel
 BuildRequires:	gtk+2-devel >= 2.0.0
+# for hdajackretask
+#BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	ncurses-devel
@@ -33,7 +35,9 @@ Requires:	liblo10k1 = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # ac3dec skipped - see ac3dec.spec
-%define	progs	as10k1 echomixer envy24control hdspconf hdsploader hdspmixer hwmixvolume ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
+# qlo10k1 has separate make rule
+# hdajackretask - missing sysfs-pin-configs.h file
+%define	progs	as10k1 echomixer envy24control hda-verb  hdspconf hdsploader hdspmixer hwmixvolume ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
 
 %description
 This packages contains command line utilities for the ALSA (Advanced
@@ -281,6 +285,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc-main/{README,NEWS,TODO}.*
 %attr(755,root,root) %{_bindir}/as10k1
 %attr(755,root,root) %{_bindir}/cspctl
+%attr(755,root,root) %{_bindir}/hda-verb
 %attr(755,root,root) %{_bindir}/hdsploader
 %attr(755,root,root) %{_bindir}/init_audigy
 %attr(755,root,root) %{_bindir}/init_audigy_eq10
