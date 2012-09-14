@@ -5,12 +5,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.0.26
+Version:	1.0.26.1
 Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	5dd605461e1cad850d0881d61b42c47e
+# Source0-md5:	805526ea5d6c40e1f2c94cee86141230
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -20,8 +20,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake >= 1.3
 BuildRequires:	fltk-devel
 BuildRequires:	gtk+2-devel >= 2.0.0
-# for hdajackretask
-#BuildRequires:	gtk+3-devel >= 3.0.0
+BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	ncurses-devel
@@ -36,8 +35,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # ac3dec skipped - see ac3dec.spec
 # qlo10k1 has separate make rule
-# hdajackretask - missing sysfs-pin-configs.h file
-%define	progs	as10k1 echomixer envy24control hda-verb  hdspconf hdsploader hdspmixer hwmixvolume ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
+%define	progs	as10k1 echomixer envy24control hda-verb hdajackretask hdspconf hdsploader hdspmixer hwmixvolume ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
 
 %description
 This packages contains command line utilities for the ALSA (Advanced
@@ -94,6 +92,20 @@ This package contains envy24control - GTK+ GUI tool to control Envy24
 Ten pakiet zawiera aplikację envy24control - graficzny interfejs GTK+
 do sterowania ustawieniami kart dźwiękowych opartych na układzie
 Envy24 (ice1712).
+
+%package gui-hda
+Summary:	GTK+ GUI for HDA Intel soundcards
+Summary(pl.UTF-8):	Graficzny interfejs GTK+ do sterowania kartami HDA Intel
+Group:		X11/Applications/Sound
+Requires:	%{name} = %{version}-%{release}
+
+%description gui-hda
+This package contains hdajackretask - a GUI to make it easy to retask
+HDA Intel jacks.
+
+%description gui-hda -l pl.UTF-8
+Ten pakiet zawiera aplikację hdajackretask - graficzny interfejs
+ułatwiający zmianę funkcji gniazd (typu jack) karty HDA Intel.
 
 %package gui-hdsp
 Summary:	FLTK GUIs to control RME Hammerfall HDSP soundcards
@@ -222,6 +234,7 @@ install -d doc-main doc-sep
 odir=$(pwd)
 for dir in %{progs}; do
 	cd $dir
+	[ -s AUTHORS ] && cp -f AUTHORS $odir/doc-main/"AUTHORS.$(basename $dir)"
 	[ -s README ] && cp -f README $odir/doc-main/"README.$(basename $dir)"
 	[ -s NEWS ] && cp -f NEWS $odir/doc-main/"NEWS.$(basename $dir)"
 	[ -s TODO ] && cp -f TODO $odir/doc-main/"TODO.$(basename $dir)"
@@ -235,8 +248,9 @@ for dir in %{progs}; do
 	%{__make}
 	cd $odir
 done
-mv doc-main/NEWS.{hdspmixer,rmedigicontrol} doc-sep
-mv doc-main/README.{echomixer,envy24control,hdspconf,hdspmixer,hwmixvolume,rmedigicontrol} doc-sep
+mv doc-main/AUTHORS.hdajackretask doc-sep
+mv doc-main/NEWS.{hdajackretask,hdspmixer,rmedigicontrol} doc-sep
+mv doc-main/README.{echomixer,envy24control,hdajackretask,hdspconf,hdspmixer,hwmixvolume,rmedigicontrol} doc-sep
 mv doc-main/TODO.hdspmixer doc-sep
 
 cd qlo10k1
@@ -321,6 +335,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc-sep/README.envy24control envy24control/README.profiles
 %attr(755,root,root) %{_bindir}/envy24control
 %{_mandir}/man1/envy24control.1*
+
+%files gui-hda
+%defattr(644,root,root,755)
+%doc doc-sep/{AUTHORS,NEWS,README}.hdajackretask
+%attr(755,root,root) %{_bindir}/hdajackretask
 
 %files gui-hdsp
 %defattr(644,root,root,755)
