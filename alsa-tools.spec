@@ -5,12 +5,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.0.26.1
+Version:	1.0.27
 Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	805526ea5d6c40e1f2c94cee86141230
+# Source0-md5:	1ea381d00a6069a98613aa7effa4cb51
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -33,7 +33,6 @@ Requires:	alsa-lib >= 1.0.24
 Requires:	liblo10k1 = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# ac3dec skipped - see ac3dec.spec
 # qlo10k1 has separate make rule
 %define	progs	as10k1 echomixer envy24control hda-verb hdajackretask hdspconf hdsploader hdspmixer hwmixvolume ld10k1 mixartloader pcxhrloader rmedigicontrol sb16_csp seq/sbiload sscape_ctl us428control usx2yloader vxloader
 
