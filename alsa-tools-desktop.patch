@@ -1,16 +1,16 @@
---- alsa-tools-1.0.22/hdspmixer/hdspmixer.desktop~	2009-12-16 16:18:53.000000000 +0100
-+++ alsa-tools-1.0.22/hdspmixer/hdspmixer.desktop	2010-05-12 15:19:33.094513260 +0200
+--- alsa-tools-1.0.22/hdspmixer/desktop/hdspmixer.desktop~	2009-12-16 16:18:53.000000000 +0100
++++ alsa-tools-1.0.22/hdspmixer/desktop/hdspmixer.desktop	2010-05-12 15:19:33.094513260 +0200
 @@ -7,4 +7,4 @@
  Icon=hdspmixer.png
  Terminal=false
  Type=Application
--Categories=Application;AudioVideo;
+-Categories=AudioVideo;
 +Categories=Application;AudioVideo;Mixer;
---- alsa-tools-1.0.22/hdspconf/hdspconf.desktop~	2009-12-16 16:18:53.000000000 +0100
-+++ alsa-tools-1.0.22/hdspconf/hdspconf.desktop	2010-05-12 15:20:09.556512302 +0200
+--- alsa-tools-1.0.22/hdspconf/desktop/hdspconf.desktop~	2009-12-16 16:18:53.000000000 +0100
++++ alsa-tools-1.0.22/hdspconf/desktop/hdspconf.desktop	2010-05-12 15:20:09.556512302 +0200
 @@ -7,4 +7,4 @@
  Icon=hdspconf.png
  Terminal=false
  Type=Application
--Categories=Application;AudioVideo;
+-Categories=AudioVideo;
 +Categories=Settings;

@@ -5,12 +5,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.1.5
+Version:	1.1.6
 Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	3afb92eb1b4f2edc8691498e57c3ec78
+# Source0-md5:	5ca8c9437ae779997cd62fb2815fef19
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -50,6 +50,8 @@ Summary:	GTK+ GUI to control Echoaudio soundcard
 Summary(pl.UTF-8):	Graficzny interfejs GTK+ do sterowania kartami dźwiękowymi Echoaudio
 Group:		X11/Applications/Sound
 Requires:	%{name} = %{version}-%{release}
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 
 %description gui-echoaudio
 This package contains Echomixer - GTK+ GUI tool to control all the
@@ -83,6 +85,8 @@ Summary:	GTK+ GUI to control Envy24 (ice1712) based soundcards
 Summary(pl.UTF-8):	Graficzny interfejs GTK+ do sterowania kartami dźwiękowymi Envy24
 Group:		X11/Applications/Sound
 Requires:	%{name} = %{version}-%{release}
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 
 %description gui-envy24
 This package contains envy24control - GTK+ GUI tool to control Envy24
@@ -98,6 +102,8 @@ Summary:	GTK+ GUI for HDA Intel soundcards
 Summary(pl.UTF-8):	Graficzny interfejs GTK+ do sterowania kartami HDA Intel
 Group:		X11/Applications/Sound
 Requires:	%{name} = %{version}-%{release}
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 
 %description gui-hda
 This package contains hdajackretask - a GUI to make it easy to retask
@@ -112,6 +118,8 @@ Summary:	FLTK GUIs to control RME Hammerfall HDSP soundcards
 Summary(pl.UTF-8):	Graficzne interfejsy FLTK do sterowania kartami dźwiękowymi RME Hammerfall HDSP
 Group:		X11/Applications/Sound
 Requires:	%{name} = %{version}-%{release}
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 
 %description gui-hdsp
 This package contains two FLTK-based GUI utilities for RME Hammerfall
@@ -130,6 +138,8 @@ Summary:	PyGTK GUI to control volume of individual streams when using hardware m
 Summary(pl.UTF-8):	Graficzny interfejs PyGTK do ustawiania głośności strumieni przy sprzętowym miksowaniu
 Group:		X11/Applications/Sound
 Requires:	%{name} = %{version}-%{release}
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 Requires:	python-pyalsa >= 1.0.22
 Requires:	python-pygtk-gtk >= 2:2.0
 
@@ -292,6 +302,36 @@ install as10k1/examples/*.emu10k1 $RPM_BUILD_ROOT%{_datadir}/ld10k1/effects
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post gui-hdsp
+%update_icon_cache hicolor
+
+%postun gui-echoaudio
+%update_icon_cache hicolor
+
+%post gui-echoaudio
+%update_icon_cache hicolor
+
+%postun gui-envy24
+%update_icon_cache hicolor
+
+%post gui-envy24
+%update_icon_cache hicolor
+
+%postun gui-hda
+%update_icon_cache hicolor
+
+%post gui-hda
+%update_icon_cache hicolor
+
+%postun gui-hdsp
+%update_icon_cache hicolor
+
+%post gui-hwmix
+%update_icon_cache hicolor
+
+%postun gui-hwmix
+%update_icon_cache hicolor
+
 %post	-n liblo10k1 -p /sbin/ldconfig
 %postun	-n liblo10k1 -p /sbin/ldconfig
 
@@ -325,6 +365,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc doc-sep/README.echomixer
 %attr(755,root,root) %{_bindir}/echomixer
+%{_desktopdir}/echomixer.desktop
+%{_iconsdir}/hicolor/*/apps/echomixer.png
 
 %files gui-emu10k1
 %defattr(644,root,root,755)
@@ -336,11 +378,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc-sep/README.envy24control envy24control/README.profiles
 %attr(755,root,root) %{_bindir}/envy24control
 %{_mandir}/man1/envy24control.1*
+%{_desktopdir}/envy24control.desktop
+%{_iconsdir}/hicolor/*/apps/envy24control.png
 
 %files gui-hda
 %defattr(644,root,root,755)
 %doc doc-sep/{AUTHORS,NEWS,README}.hdajackretask
 %attr(755,root,root) %{_bindir}/hdajackretask
+%{_desktopdir}/hdajackretask.desktop
+%{_iconsdir}/hicolor/*/apps/hdajackretask.png
 
 %files gui-hdsp
 %defattr(644,root,root,755)
@@ -349,13 +395,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hdspmixer
 %{_desktopdir}/hdspconf.desktop
 %{_desktopdir}/hdspmixer.desktop
-%{_pixmapsdir}/hdspconf.png
-%{_pixmapsdir}/hdspmixer.png
+%{_iconsdir}/hicolor/*/apps/hdspconf.png
+%{_iconsdir}/hicolor/*/apps/hdspmixer.png
 
 %files gui-hwmix
 %defattr(644,root,root,755)
 %doc doc-sep/README.hwmixvolume
 %attr(755,root,root) %{_bindir}/hwmixvolume
+%{_desktopdir}/hwmixvolume.desktop
+%{_iconsdir}/hicolor/*/apps/hwmixvolume.png
 
 %files gui-rmedigi
 %defattr(644,root,root,755)
