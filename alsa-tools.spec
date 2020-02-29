@@ -5,12 +5,12 @@
 Summary:	Advanced Linux Sound Architecture (ALSA) - tools
 Summary(pl.UTF-8):	Advanced Linux Sound Architecture (ALSA) - narzędzia
 Name:		alsa-tools
-Version:	1.1.7
+Version:	1.2.2
 Release:	1
 License:	GPL v2+
 Group:		Applications/Sound
 Source0:	ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	475bdf6457bcf55c8c895d653ee56a54
+# Source0-md5:	4e6187d2c3a8c73a9d75d66a72faed27
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
@@ -237,7 +237,7 @@ echo 'AC_DEFUN([AM_PATH_GTK],[])' > echomixer/acinclude.m4
 echo 'AC_DEFUN([AM_PATH_GTK],[])' > envy24control/acinclude.m4
 echo 'AC_DEFUN([AM_PATH_GTK],[])' > rmedigicontrol/acinclude.m4
 
-sed -i -e 's,/usr/bin/env python,/usr/bin/python,' hwmixvolume/hwmixvolume
+sed -i -e 's,/usr/bin/env python,%{__python},' hwmixvolume/hwmixvolume
 
 install -d doc-main doc-sep
 
