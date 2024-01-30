@@ -15,6 +15,7 @@ Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-sh.patch
 Patch2:		%{name}-csp.patch
 Patch3:		x32.patch
+Patch4:		%{name}-no-c2x.patch
 URL:		http://www.alsa-project.org/
 BuildRequires:	alsa-lib-devel >= 1.0.24
 BuildRequires:	autoconf
@@ -231,6 +232,7 @@ Statyczna biblioteka liblo10k1.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 # don't BR gtk+ 1.2
 echo 'AC_DEFUN([AM_PATH_GTK],[])' > echomixer/acinclude.m4
